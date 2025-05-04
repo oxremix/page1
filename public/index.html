@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juan Pérez | Venta de Productos Únicos en Chile</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#2563eb',
+                        accent: '#1d4ed8',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                        // Brand colors
+                        'mercadolibre-yellow': '#FFE600',
+                        'mercadolibre-blue': '#2D3277',
+                        'mercadopago-blue': '#4287F5',
+                        'mercadopago-green': '#00A650',
+                        'whatsapp-green': '#25D366',
+                        'whatsapp-dark-green': '#128C7E',
+                        'amazon-orange': '#FF6200',
+                        'amazon-yellow': '#FFCE12',
+                        'amazon-dark': '#232F3E'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Avatar gradient */
+        .avatar-gradient::before {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FFE600, #25D366, #4287F5, #FF6200);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: gradient 8s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Mobile column reverse */
+        @media (max-width: 1023px) {
+            .mobile-column-reverse {
+                flex-direction: column-reverse;
+            }
+        }
+        
+        /* Custom tab styling */
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        
+        /* Portfolio item hover effect */
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Form input focus */
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Accordion content hidden by default */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion.active .accordion-content {
+            max-height: 1000px; /* Adjust based on content size */
+        }
+    </style>
+</head>
+<body class="font-sans bg-light text-dark">
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Juan Pérez</a>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="font-medium hover:text-primary transition-colors">Inicio</a>
+                    <a href="#about" class="font-medium hover:text-primary transition-colors">Sobre mí</a>
+                    <a href="#portfolio" class="font-medium hover:text-primary transition-colors">Portafolio</a>
+                    <a href="#pricing" class="font-medium hover:text-primary transition-colors">Precios</a>
+                    <a href="#contact" class="font-medium hover:text-primary transition-colors">Contacto</a>
+                </div>
+                
+                <button class="md:hidden focus:outline-none" id="menu-toggle">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-20 left-0 right-0 bg-white shadow-lg z-40 hidden md:hidden">
+        <div class="flex flex-col space-y-4 p-6">
+            <a href="#home" class="font-medium hover:text-primary transition-colors py-2">Inicio</a>
+            <a href="#about" class="font-medium hover:text-primary transition-colors py-2">Sobre mí</a>
+            <a href="#portfolio" class="font-medium hover:text-primary transition-colors py-2">Portafolio</a>
+            <a href="#pricing" class="font-medium hover:text-primary transition-colors py-2">Precios</a>
+            <a href="#contact" class="font-medium hover:text-primary transition-colors py-2">Contacto</a>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center mobile-column-reverse">
+                <!-- Image -->
+                <div class="lg:w-1/2 flex justify-center mb-8 lg:mb-0 animate-fadeIn" style="animation-delay: 0.2s;">
+                    <div class="relative avatar-gradient">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+                             alt="Juan Pérez"
+                             class="w-44 h-44 md:w-56 md:h-56 rounded-full object-cover border-4 border-white shadow-xl relative z-10 animate-float">
+                    </div>
+                </div>
+                
+                <!-- Text -->
+                <div class="lg:w-1/2 mb-12 lg:mb-0 animate-fadeIn">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Hola, soy <span class="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Juan Pérez</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8">
+                        Venta de productos únicos y exclusivos en Chile. Encuentra lo que nadie más tiene.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="bg-[#25D366] hover:bg-[#128C7E] text-white px-8 py-3 rounded-lg font-semibold transition-colors shadow-lg hover:shadow-green-600/30 flex items-center">
+                            <i class="fab fa-whatsapp mr-2 text-lg"></i> Contáctame
+                        </a>
+                        <a href="https://articulo.mercadolibre.cl/productos" class="bg-[#3483FA] hover:bg-[#2968C8] text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center">
+                            <i class="fas fa-shopping-cart mr-2"></i> Comprar en MercadoLibre
+                        </a>
+                        <a href="https://x.com/juanventas" class="bg-[#000000] hover:bg-[#333333] text-white px-8 py-3 rounded-lg font-semibold transition-colors flex items-center">
+                            <i class="fab fa-x-twitter mr-2 text-lg"></i> Sígueme en X
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Social Media Section -->
+    <div class="bg-white py-8 shadow-sm">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6">
+                <a href="#" class="w-12 h-12 bg-[#E1306C] hover:bg-[#C13584] text-white flex items-center justify-center rounded-full transition-all hover:-translate-y-1">
+                    <i class="fab fa-instagram text-lg"></i>
+                </a>
+                <a href="#" class="w-12 h-12 bg-[#1877F2] hover:bg-[#3B5998] text-white flex items-center justify-center rounded-full transition-all hover:-translate-y-1">
+                    <i class="fab fa-facebook-f text-lg"></i>
+                </a>
+                <a href="#" class="w-12 h-12 bg-[#000000] hover:bg-[#333333] text-white flex items-center justify-center rounded-full transition-all hover:-translate-y-1">
+                    <i class="fab fa-tiktok text-lg"></i>
+                </a>
+                <a href="#" class="w-12 h-12 bg-[#FF0000] hover:bg-[#CC0000] text-white flex items-center justify-center rounded-full transition-all hover:-translate-y-1">
+                    <i class="fab fa-youtube text-lg"></i>
+                </a>
+                <a href="#" class="w-12 h-12 bg-[#3483FA] hover:bg-[#2968C8] text-white flex items-center justify-center rounded-full transition-all hover:-translate-y-1">
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section Variant 5 -->
+    <section id="about-5" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <!-- Photo -->
+                <div class="lg:w-1/3 flex justify-center animate-fadeIn" style="animation-delay: 0.2s;">
+                    <div class="relative avatar-gradient">
+                        <img src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=658&q=80" 
+                             alt="Juan Pérez en su tienda" 
+                             class="w-56 h-56 rounded-full object-cover border-4 border-white shadow-xl animate-float">
+                    </div>
+                </div>
+                <!-- Tabs -->
+                <div class="lg:w-2/3 animate-fadeIn" style="animation-delay: 0.4s;">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-whatsapp-green to-amazon-orange bg-clip-text text-transparent">
+                        Conoce mi historia
+                    </h2>
+                    
+                    <div class="flex border-b border-neutral-200 mb-6">
+                        <button class="tab-button py-2 px-4 font-medium border-b-2 border-transparent hover:text-primary transition-colors tab-active" onclick="openTab(event, 'tab1')" id="defaultTab">
+                            <i class="fas fa-book-open mr-2"></i> Historia
+                        </button>
+                        <button class="tab-button py-2 px-4 font-medium border-b-2 border-transparent hover:text-primary transition-colors" onclick="openTab(event, 'tab2')">
+                            <i class="fas fa-bullseye mr-2"></i> Misión
+                        </button>
+                        <button class="tab-button py-2 px-4 font-medium border-b-2 border-transparent hover:text-primary transition-colors" onclick="openTab(event, 'tab3')">
+                            <i class="fas fa-heart mr-2"></i> Valores
+                        </button>
+                    </div>
+                    
+                    <div id="tab1" class="tab-content">
+                        <p class="text-lg text-neutral-700 mb-4">
+                            <i class="fas fa-calendar-check text-primary mr-2"></i> Todo comenzó en 2013 con una pequeña tienda online en MercadoLibre. Lo que empezó como un proyecto personal se convirtió en un negocio próspero gracias al boca a boca de clientes satisfechos. Hoy opero desde un almacén en Santiago con capacidad para más de 5,000 productos diferentes.
+                        </p>
+                        <p class="text-lg text-neutral-700">
+                            <i class="fas fa-globe-americas text-primary mr-2"></i> En 2018 expandí mis operaciones a Amazon, llegando a clientes internacionales. Cada año incorporo nuevas líneas de productos basadas en las tendencias del mercado y las solicitudes de mis clientes.
+                        </p>
+                        <div class="mt-6 flex flex-wrap gap-2">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm flex items-center">
+                                <i class="fas fa-store mr-1"></i> MercadoLibre
+                            </span>
+                            <span class="bg-amazon-orange/10 text-amazon-orange px-3 py-1 rounded-full text-sm flex items-center">
+                                <i class="fab fa-amazon mr-1"></i> Amazon
+                            </span>
+                            <span class="bg-whatsapp-green/10 text-whatsapp-green px-3 py-1 rounded-full text-sm flex items-center">
+                                <i class="fas fa-warehouse mr-1"></i> Almacén propio
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div id="tab2" class="tab-content hidden">
+                        <p class="text-lg text-neutral-700 mb-4">
+                            <i class="fas fa-handshake text-primary mr-2"></i> Mi misión es simple pero poderosa: conectar a los chilenos con productos innovadores y de alta calidad que no están disponibles en el mercado local. Quiero que cada compra sea una experiencia satisfactoria desde el primer clic hasta la entrega.
+                        </p>
+                        <p class="text-lg text-neutral-700">
+                            <i class="fas fa-chart-line text-primary mr-2"></i> Trabajo constantemente para mejorar mis procesos de compra, embalaje y envío, asegurando que cada cliente reciba exactamente lo que espera, cuando lo espera.
+                        </p>
+                        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-neutral-50 p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                                        <i class="fas fa-shipping-fast text-primary text-sm"></i>
+                                    </div>
+                                    <h4 class="font-medium">Envíos rápidos</h4>
+                                </div>
+                                <p class="text-sm text-neutral-600">Entrega en 24-48 horas en Santiago</p>
+                            </div>
+                            <div class="bg-neutral-50 p-4 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-8 h-8 rounded-full bg-whatsapp-green/10 flex items-center justify-center mr-3">
+                                        <i class="fas fa-headset text-whatsapp-green text-sm"></i>
+                                    </div>
+                                    <h4 class="font-medium">Soporte 24/7</h4>
+                                </div>
+                                <p class="text-sm text-neutral-600">Asistencia personalizada por WhatsApp</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="tab3" class="tab-content hidden">
+                        <p class="text-lg text-neutral-700 mb-4">
+                            <i class="fas fa-gem text-primary mr-2"></i> Transparencia, honestidad y pasión por lo que hago son los valores que guían mi negocio. Creo en precios justos, descripciones precisas de productos y en construir relaciones a largo plazo con mis clientes.
+                        </p>
+                        <div class="mt-6">
+                            <div class="flex items-start mb-4">
+                                <div class="mr-3 mt-1">
+                                    <div class="w-8 h-8 rounded-full bg-mercadopago-blue/10 flex items-center justify-center">
+                                        <i class="fas fa-hand-holding-heart text-mercadopago-blue text-sm"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-neutral-800">Compromiso con el cliente</h4>
+                                    <p class="text-neutral-600 text-sm">Cada cliente es importante y merece la mejor atención</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start mb-4">
+                                <div class="mr-3 mt-1">
+                                    <div class="w-8 h-8 rounded-full bg-amazon-orange/10 flex items-center justify-center">
+                                        <i class="fas fa-lightbulb text-amazon-orange text-sm"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-neutral-800">Innovación constante</h4>
+                                    <p class="text-neutral-600 text-sm">Siempre buscando nuevos productos y mejoras</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="mr-3 mt-1">
+                                    <div class="w-8 h-8 rounded-full bg-whatsapp-green/10 flex items-center justify-center">
+                                        <i class="fas fa-award text-whatsapp-green text-sm"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-neutral-800">Excelencia en servicio</h4>
+                                    <p class="text-neutral-600 text-sm">Calidad desde el primer contacto hasta la entrega</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section - Variant 1 -->
+    <section id="about" class="py-20 bg-gradient-to-br from-light to-neutral-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12 mobile-column-reverse">
+                <!-- Image -->
+                <div class="lg:w-1/2 flex justify-center">
+                    <div class="relative avatar-gradient">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80"
+                             alt="About Juan Pérez"
+                             class="w-56 h-56 rounded-full object-cover border-4 border-white shadow-xl animate-float">
+                    </div>
+                </div>
+                
+                <!-- Text -->
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-amazon-orange to-whatsapp-green bg-clip-text text-transparent">Sobre mi negocio</h2>
+                    <p class="text-lg text-neutral-700 mb-8">
+                        Desde 2013, me he dedicado a la venta de productos únicos en Chile a través de plataformas como MercadoLibre y Amazon. Mi misión es ofrecer artículos exclusivos que no se encuentran fácilmente en el mercado local, brindando a mis clientes una experiencia de compra excepcional.
+                    </p>
+                    <p class="text-lg text-neutral-700 mb-8">
+                        Con más de 10,000 ventas realizadas y una calificación de 4.9 estrellas, me enorgullezco de ofrecer productos de calidad, envíos rápidos and un servicio al cliente personalizado.
+                    </p>
+                    <div class="flex space-x-6">
+                        <i class="fas fa-shopping-cart text-mercadopago-blue text-2xl hover:-translate-y-1 transition-transform"></i>
+                        <i class="fab fa-whatsapp text-whatsapp-green text-2xl hover:-translate-y-1 transition-transform"></i>
+                        <i class="fas fa-truck text-amazon-orange text-2xl hover:-translate-y-1 transition-transform"></i>
+                        <i class="fas fa-award text-mercadolibre-yellow text-2xl hover:-translate-y-1 transition-transform"></i>
+                        <i class="fas fa-star text-primary text-2xl hover:-translate-y-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- About Section - Variant 2 (Carousel) -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Text -->
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-mercadolibre-yellow to-mercadopago-blue bg-clip-text text-transparent">Mi Experiencia</h2>
+                    <p class="text-lg text-neutral-700 mb-8">
+                        Con más de una década en el mercado, he desarrollado un profundo conocimiento de las necesidades de los consumidores chilenos. Mis productos son cuidadosamente seleccionados para ofrecer calidad, originalidad y valor.
+                    </p>
+                    <p class="text-lg text-neutral-700 mb-8">
+                        Trabajo directamente con proveedores internacionales para garantizar la autenticidad de cada artículo y mantener precios competitivos sin comprometer la calidad.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="bg-mercadopago-green/10 text-mercadopago-green px-4 py-2 rounded-full text-sm font-medium">+10,000 ventas</span>
+                        <span class="bg-whatsapp-green/10 text-whatsapp-dark-green px-4 py-2 rounded-full text-sm font-medium">4.9 ★ rating</span>
+                        <span class="bg-amazon-orange/10 text-amazon-dark px-4 py-2 rounded-full text-sm font-medium">Envío rápido</span>
+                    </div>
+                </div>
+                
+                <!-- Carousel -->
+                <div class="lg:w-1/2">
+                    <div class="relative overflow-hidden rounded-xl shadow-xl">
+                        <div id="about-carousel" class="flex transition-transform duration-300">
+                            <div class="min-w-full">
+                                <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                                     alt="Workspace"
+                                     class="w-full h-80 object-cover">
+                            </div>
+                            <div class="min-w-full">
+                                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                                     alt="Team meeting"
+                                     class="w-full h-80 object-cover">
+                            </div>
+                            <div class="min-w-full">
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                                     alt="Product packaging"
+                                     class="w-full h-80 object-cover">
+                            </div>
+                        </div>
+                        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                            <button class="w-3 h-3 rounded-full bg-white/80 hover:bg-white transition-colors carousel-dot" data-index="0"></button>
+                            <button class="w-3 h-3 rounded-full bg-white/80 hover:bg-white transition-colors carousel-dot" data-index="1"></button>
+                            <button class="w-3 h-3 rounded-full bg-white/80 hover:bg-white transition-colors carousel-dot" data-index="2"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-mercadolibre-blue to-amazon-dark bg-clip-text text-transparent">Nuestros Productos Destacados</h2>
+                <p class="text-lg text-neutral-700 max-w-2xl mx-auto">
+                    Descubre algunos de nuestros productos más populares y exclusivos que han encantado a nuestros clientes.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1399&q=80"
+                         alt="Smart Watch"
+                         class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 flex flex-col justify-end p-6 transition-all duration-300 transform translate-y-4">
+                        <h3 class="text-white text-xl font-bold mb-2">Reloj Inteligente Premium</h3>
+                        <p class="text-white/90 mb-4">Reloj inteligente con pantalla AMOLED, monitoreo de salud y resistencia al agua.</p>
+                        <a href="#" class="bg-mercadopago-blue hover:bg-mercadopago-blue/90 text-white px-6 py-2 rounded-lg font-medium inline-block w-max transition-colors">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80"
+                         alt="Wireless Earbuds"
+                         class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 flex flex-col justify-end p-6 transition-all duration-300 transform translate-y-4">
+                        <h3 class="text-white text-xl font-bold mb-2">Audífonos Inalámbricos</h3>
+                        <p class="text-white/90 mb-4">Sonido premium con cancelación de ruido y hasta 30 horas de batería.</p>
+                        <a href="#" class="bg-mercadopago-blue hover:bg-mercadopago-blue/90 text-white px-6 py-2 rounded-lg font-medium inline-block w-max transition-colors">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1546054454-aa26e2b734c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
+                         alt="Camera"
+                         class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 flex flex-col justify-end p-6 transition-all duration-300 transform translate-y-4">
+                        <h3 class="text-white text-xl font-bold mb-2">Cámara Profesional</h3>
+                        <p class="text-white/90 mb-4">Cámara mirrorless con sensor full-frame y grabación 4K.</p>
+                        <a href="#" class="bg-mercadopago-blue hover:bg-mercadopago-blue/90 text-white px-6 py-2 rounded-lg font-medium inline-block w-max transition-colors">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1367&q=80"
+                         alt="Backpack"
+                         class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 flex flex-col justify-end p-6 transition-all duration-300 transform translate-y-4">
+                        <h3 class="text-white text-xl font-bold mb-2">Mochila Antirrobo</h3>
+                        <p class="text-white/90 mb-4">Mochila resistente al agua con compartimentos anti-corte y carga USB.</p>
+                        <a href="#" class="bg-mercadopago-blue hover:bg-mercadopago-blue/90 text-white px-6 py-2 rounded-lg font-medium inline-block w-max transition-colors">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-item group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
+                         alt="Smartphone"
+                         class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 flex flex-col justify-end p-6 transition-all duration-300 transform translate-y-4">
+                        <h3 class="text-white text-xl font-bold mb-2">Smartphone Flagship</h3>
+                        <p class="text-white/90 mb-4">Último modelo con cámara de 108MP y pantalla 120Hz.</p>
+                        <a href="#" class="bg-mercadopago-blue hover:bg-mercadopago-blue/90 text-white px-6 py-2 rounded-lg font-medium inline-block w-max transition-colors">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-item group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1520390138845-fd2d229dd553?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1489&q=80"
+                         alt="Coffee Maker"
+                         class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 flex flex-col justify-end p-6 transition-all duration-300 transform translate-y-4">
+                        <h3 class="text-white text-xl font-bold mb-2">Cafetera Automática</h3>
+                        <p class="text-white/90 mb-4">Cafetera inteligente con molinillo integrado y control por app.</p>
+                        <a href="#" class="bg-mercadopago-blue hover:bg-mercadopago-blue/90 text-white px-6 py-2 rounded-lg font-medium inline-block w-max transition-colors">
+                            Ver detalles
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-gradient-to-r from-mercadolibre-yellow to-amazon-orange text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-all hover:-translate-y-1">
+                    Ver todos los productos
+                </a>
+            </div>
+        </div>
+    </section>
+
+  <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-amazon-orange to-whatsapp-green bg-clip-text text-transparent">
+                    Sobre mi negocio
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Más de 10 años de experiencia vendiendo productos únicos y de calidad en el mercado chileno.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl custom-shadow transition-all hover:bg-white">
+                    <div class="w-16 h-16 bg-whatsapp-green/10 text-whatsapp-green rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-medal text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Calidad Garantizada</h3>
+                    <p class="text-gray-600">Todos nuestros productos pasan por rigurosos controles de calidad antes de llegar a tus manos.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl custom-shadow transition-all hover:bg-white">
+                    <div class="w-16 h-16 bg-amazon-orange/10 text-amazon-orange rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-shipping-fast text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Envíos Rápidos</h3>
+                    <p class="text-gray-600">Despachamos a todo Chile con tiempos de entrega récord y seguimiento en tiempo real.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl custom-shadow transition-all hover:bg-white">
+                    <div class="w-16 h-16 bg-mercadolibre-blue/10 text-mercadolibre-blue rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-headset text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Soporte 24/7</h3>
+                    <p class="text-gray-600">Nuestro equipo está disponible para resolver cualquier duda o inconveniente que puedas tener.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- About Section Variant 2 (Accordion) -->
+    <section id="about-2" class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center bg-gradient-to-r from-whatsapp-green to-mercadopago-blue bg-clip-text text-transparent">Mi Historia en Detalle</h2>
+            
+            <div class="space-y-4">
+                <!-- Accordion Item 1 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden accordion">
+                    <button class="w-full flex justify-between items-center p-6 bg-white hover:bg-gray-50 transition-colors accordion-button">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                                <i class="fas fa-rocket text-primary"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-left">Los Primeros Pasos</h3>
+                        </div>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-6 bg-gray-50">
+                            <div class="flex flex-col md:flex-row gap-6">
+                                <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" 
+                                     alt="Primeros pasos" 
+                                     class="w-full md:w-1/3 h-48 object-cover rounded-lg">
+                                <div class="md:w-2/3">
+                                    <p class="text-gray-700 mb-4">En 2013, con solo 10 productos artesanales en mi catálogo de MercadoLibre, comencé esta aventura. Cada venta era una emoción y cada cliente una oportunidad para aprender.</p>
+                                    <p class="text-gray-700">Los primeros meses fueron difíciles, pero pronto descubrí la importancia de la fotografía de producto, las descripciones detalladas y la atención personalizada al cliente.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Accordion Item 2 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden accordion">
+                    <button class="w-full flex justify-between items-center p-6 bg-white hover:bg-gray-50 transition-colors accordion-button">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-whatsapp-green/10 flex items-center justify-center mr-4">
+                                <i class="fas fa-chart-line text-whatsapp-green"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-left">Expansión y Crecimiento</h3>
+                        </div>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-6 bg-gray-50">
+                            <div class="flex flex-col md:flex-row gap-6">
+                                <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" 
+                                     alt="Expansión" 
+                                     class="w-full md:w-1/3 h-48 object-cover rounded-lg">
+                                <div class="md:w-2/3">
+                                    <p class="text-gray-700 mb-4">Para 2017, mi negocio había crecido exponencialmente. Contaba con más de 200 productos en mi catálogo y había expandido mis operaciones a Amazon, llegando a clientes internacionales.</p>
+                                    <p class="text-gray-700">Implementé sistemas de logística más eficientes, establecí alianzas con proveedores internacionales y comencé a utilizar herramientas profesionales de gestión de inventario y atención al cliente.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Accordion Item 3 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden accordion">
+                    <button class="w-full flex justify-between items-center p-6 bg-white hover:bg-gray-50 transition-colors accordion-button">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-amazon-orange/10 flex items-center justify-center mr-4">
+                                <i class="fas fa-trophy text-amazon-orange"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-left">Negocio Consolidado</h3>
+                        </div>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-6 bg-gray-50">
+                            <div class="flex flex-col md:flex-row gap-6">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                                     alt="Consolidación" 
+                                     class="w-full md:w-1/3 h-48 object-cover rounded-lg">
+                                <div class="md:w-2/3">
+                                    <p class="text-gray-700 mb-4">Hoy, en 2023, cuento con un equipo de 5 personas dedicadas, más de 1,000 productos en mi catálogo y presencia en múltiples plataformas de comercio electrónico.</p>
+                                    <p class="text-gray-700">Mi enfoque sigue siendo el mismo: ofrecer productos únicos con un servicio excepcional. He incorporado inteligencia artificial para análisis de mercado y atención al cliente, manteniendo siempre la calidez humana que caracteriza mi negocio.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gradient-to-br from-neutral-50 to-neutral-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-amazon-orange to-mercadopago-green bg-clip-text text-transparent">Nuestros Planes</h2>
+                <p class="text-lg text-neutral-700 max-w-2xl mx-auto">
+                    Ofrecemos diferentes opciones para satisfacer todas las necesidades y presupuestos.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Pricing Card 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-xl hover:-translate-y-2">
+                    <div class="bg-mercadopago-blue/10 p-6">
+                        <h3 class="text-xl font-bold text-mercadopago-blue mb-2">Básico</h3>
+                        <p class="text-neutral-600">Perfecto para comenzar</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold">$29.990</span>
+                            <span class="text-neutral-500">/unidad</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-mercadopago-green mr-2"></i>
+                                <span>Garantía 6 meses</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-mercadopago-green mr-2"></i>
+                                <span>Envío estándar</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-mercadopago-green mr-2"></i>
+                                <span>Soporte básico</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="block w-full bg-mercadopago-blue hover:bg-mercadopago-blue/90 text-white text-center py-3 rounded-lg font-medium transition-colors">
+                            Comprar ahora
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Pricing Card 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-xl hover:-translate-y-2">
+                    <div class="bg-whatsapp-green/10 p-6">
+                        <h3 class="text-xl font-bold text-whatsapp-green mb-2">Premium</h3>
+                        <p class="text-neutral-600">Lo más popular</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold">$59.990</span>
+                            <span class="text-neutral-500">/unidad</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-whatsapp-green mr-2"></i>
+                                <span>Garantía 1 año</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-whatsapp-green mr-2"></i>
+                                <span>Envío express</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-whatsapp-green mr-2"></i>
+                                <span>Soporte prioritario</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-whatsapp-green mr-2"></i>
+                                <span>Accesorios incluidos</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="block w-full bg-whatsapp-green hover:bg-whatsapp-dark-green text-white text-center py-3 rounded-lg font-medium transition-colors">
+                            Comprar ahora
+                        </a>
+                    </div>
+                </div>
+
+           
+                <!-- Pricing Card 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-xl hover:-translate-y-2">
+                    <div class="bg-amazon-orange/10 p-6">
+                        <h3 class="text-xl font-bold text-amazon-orange mb-2">Empresarial</h3>
+                        <p class="text-neutral-600">Para compras al por mayor</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold">$499.990</span>
+                            <span class="text-neutral-500">/paquete (10 unidades)</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-amazon-orange mr-2"></i>
+                                <span>Garantía 2 años</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-amazon-orange mr-2"></i>
+                                <span>Envío gratis</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-amazon-orange mr-2"></i>
+                                <span>Soporte 24/7</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-amazon-orange mr-2"></i>
+                                <span>Descuento por volumen</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-amazon-orange mr-2"></i>
+                                <span>Personalización disponible</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="block w-full bg-amazon-orange hover:bg-amazon-dark text-white text-center py-3 rounded-lg font-medium transition-colors">
+                            Comprar ahora
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
+                <h3 class="text-xl font-bold mb-4 text-center">¿No encuentras lo que buscas?</h3>
+                <p class="text-neutral-700 text-center mb-6">
+                    Contáctanos para productos personalizados o pedidos especiales. Estamos aquí para ayudarte.
+                </p>
+                <div class="flex justify-center">
+                    <a href="#contact" class="bg-gradient-to-r from-primary to-accent text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-all hover:-translate-y-1 flex items-center">
+                        <i class="fab fa-whatsapp mr-2 text-lg"></i> Contactar ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <!-- Contact Form -->
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-whatsapp-green to-mercadopago-blue bg-clip-text text-transparent">Contáctanos</h2>
+                    <p class="text-lg text-neutral-700 mb-8">
+                        ¿Tienes preguntas sobre nuestros productos? Completa el formulario y nos pondremos en contacto contigo lo antes posible.
+                    </p>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-neutral-700 mb-1">Nombre</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary form-input transition-colors" placeholder="Tu nombre">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-neutral-700 mb-1">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary form-input transition-colors" placeholder="tu@email.com">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-neutral-700 mb-1">Asunto</label>
+                            <select id="subject" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary form-input transition-colors">
+                                <option value="">Selecciona un tema</option>
+                                <option value="question">Consulta sobre producto</option>
+                                <option value="order">Seguimiento de pedido</option>
+                                <option value="wholesale">Venta al por mayor</option>
+                                <option value="other">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-neutral-700 mb-1">Mensaje</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:border-primary form-input transition-colors" placeholder="Tu mensaje..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary hover:bg-secondary text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                            Enviar mensaje
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="lg:w-1/2">
+                    <div class="bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-xl p-8 h-full">
+                        <h3 class="text-xl font-bold mb-6 text-neutral-800">Información de contacto</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Contact Item 1 -->
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-12 h-12 rounded-full bg-whatsapp-green/10 flex items-center justify-center">
+                                        <i class="fab fa-whatsapp text-whatsapp-green text-xl"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-neutral-800">WhatsApp</h4>
+                                    <p class="text-neutral-600">+56 9 1234 5678</p>
+                                    <a href="#" class="text-primary hover:underline text-sm">Enviar mensaje</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Contact Item 2 -->
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-12 h-12 rounded-full bg-mercadolibre-yellow/10 flex items-center justify-center">
+                                        <i class="fas fa-shopping-cart text-mercadolibre-yellow text-xl"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-neutral-800">MercadoLibre</h4>
+                                    <p class="text-neutral-600">tiendajuanperez</p>
+                                    <a href="#" class="text-primary hover:underline text-sm">Visitar tienda</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Contact Item 3 -->
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-12 h-12 rounded-full bg-amazon-orange/10 flex items-center justify-center">
+                                        <i class="fab fa-amazon text-amazon-orange text-xl"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-neutral-800">Amazon</h4>
+                                    <p class="text-neutral-600">juanperezstore</p>
+                                    <a href="#" class="text-primary hover:underline text-sm">Ver productos</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Contact Item 4 -->
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                        <i class="fas fa-envelope text-primary text-xl"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-neutral-800">Email</h4>
+                                    <p class="text-neutral-600">contacto@juanperez.cl</p>
+                                    <a href="#" class="text-primary hover:underline text-sm">Enviar correo</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Contact Item 5 -->
+                            <div class="flex items-start">
+                                <div class="mr-4 mt-1">
+                                    <div class="w-12 h-12 rounded-full bg-mercadopago-blue/10 flex items-center justify-center">
+                                        <i class="fas fa-map-marker-alt text-mercadopago-blue text-xl"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-neutral-800">Ubicación</h4>
+                                    <p class="text-neutral-600">Av. Providencia 1234, Santiago, Chile</p>
+                                    <a href="#" class="text-primary hover:underline text-sm">Ver en mapa</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-8 border-t border-neutral-200">
+                            <h4 class="font-medium text-neutral-800 mb-4">Horario de atención</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-neutral-600">Lunes a Viernes</span>
+                                    <span class="font-medium">9:00 - 18:00 hrs</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-neutral-600">Sábados</span>
+                                    <span class="font-medium">10:00 - 14:00 hrs</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-neutral-600">Domingos</span>
+                                    <span class="font-medium">Cerrado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Juan Pérez</h3>
+                    <p class="text-gray-400 mb-4">Venta de productos únicos y exclusivos en Chile. Encuentra lo que nadie más tiene.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Enlaces</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">Sobre mí</a></li>
+                        <li><a href="#portfolio" class="text-gray-400 hover:text-white transition-colors">Portafolio</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors">Precios</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-3 text-primary"></i>
+                            <span>Santiago, Chile</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-primary"></i>
+                            <span>+56 9 1234 5678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-whatsapp mr-3 text-primary"></i>
+                            <span>+56 9 8765 4321</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-primary"></i>
+                            <span>contacto@juanperez.cl</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 Juan Pérez. Todos los derechos reservados.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Términos y condiciones</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">Política de privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-24 right-8 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:bg-secondary opacity-100 visible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/56912345678" class="fixed bottom-8 right-8 w-12 h-12 bg-whatsapp-green text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:bg-whatsapp-green/90">
+        <i class="fab fa-whatsapp text-xl"></i>
+    </a>
+    
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Tab functionality for About Section Variant 5
+        function openTab(evt, tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('tab-active');
+                button.classList.remove('border-primary');
+            });
+            
+            // Show the current tab and add active class to the button
+            document.getElementById(tabName).classList.remove('hidden');
+            evt.currentTarget.classList.add('tab-active');
+            evt.currentTarget.classList.add('border-primary');
+        }
+        
+        // Set the first tab as active by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const defaultTab = document.getElementById('defaultTab');
+            if (defaultTab) {
+                defaultTab.click();
+            }
+        });
+
+        // Tab functionality for other variants
+        document.querySelectorAll('[data-tab]').forEach(tabButton => {
+            tabButton.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Hide all tab contents in this section
+                const tabContents = this.closest('section').querySelectorAll('.tab-content');
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Remove active class from all tab buttons in this section
+                const tabButtons = this.closest('section').querySelectorAll('.tab-button');
+                tabButtons.forEach(button => {
+                    button.classList.remove('tab-active');
+                });
+                
+                // Show the current tab and add active class to the button
+                document.getElementById(tabId).classList.remove('hidden');
+                this.classList.add('tab-active');
+            });
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const accordion = this.closest('.accordion');
+                const content = accordion.querySelector('.accordion-content');
+                const icon = this.querySelector('i');
+                
+                // Toggle the active class to expand/collapse
+                accordion.classList.toggle('active');
+                
+                // Update the icon based on the accordion state
+                if (accordion.classList.contains('active')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+
+        // Ensure no accordion is open by default
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.accordion').forEach(accordion => {
+                accordion.classList.remove('active');
+                const icon = accordion.querySelector('.accordion-button i');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            });
+        });
+
+        // Tab underline functionality
+        document.querySelectorAll('.tab-underline').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs in this section
+                const tabs = this.closest('section').querySelectorAll('.tab-underline');
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Get tab content to show
+                const tabId = this.getAttribute('data-tab');
+                
+                // Hide all tab contents in this section
+                const tabContents = this.closest('section').querySelectorAll('.tab-content');
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Show the selected tab content
+                document.getElementById(tabId).classList.remove('hidden');
+            });
+        });
+
+        // Carousel functionality
+        const carousel = document.getElementById('about-carousel');
+        const dots = document.querySelectorAll('.carousel-dot');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === currentIndex);
+                dot.classList.toggle('bg-white/80', index !== currentIndex);
+            });
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                currentIndex = parseInt(this.getAttribute('data-index'));
+                updateCarousel();
+            });
+        });
+
+        // Initialize carousel
+        updateCarousel();
+
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('opacity-100', 'visible');
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
